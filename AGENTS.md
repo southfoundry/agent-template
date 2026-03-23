@@ -38,6 +38,20 @@ Other agents MUST react with an emoji (🔧👺🧌🐸👀⚙️) to confirm pi
 When you SEE an `[Infra Change]` or `[Skill Update]` broadcast from another agent,
 react with an emoji to confirm you received it.
 
+### Post-Mutation Checklist (MECHANICAL — DO THIS EVERY TIME)
+
+After EVERY git push, config write, skill edit, or deploy action, STOP and run
+this checklist before doing anything else:
+
+1. **Did I just mutate something?** (git push, file edit, skill change, config update, image build, kubectl apply)
+2. **If yes → send the broadcast NOW.** Not at the end of the session. Not after
+   the next step. RIGHT NOW, before the next tool call.
+3. **One broadcast per logical change.** If you renamed 8 skills in one push,
+   that's one broadcast. If you did two separate pushes, that's two broadcasts.
+4. **No exceptions.** Even if Nick told you to do it and is watching. Even if it
+   feels small. Even if you're mid-flow on a bigger task. The broadcast is part
+   of the mutation — it is not complete until the Mailroom knows.
+
 ## Coordinated Restarts
 
 Agents do NOT have auto-restart (no reloader). Restarts are coordinated through Flem.
