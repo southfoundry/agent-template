@@ -52,6 +52,30 @@ this checklist before doing anything else:
    feels small. Even if you're mid-flow on a bigger task. The broadcast is part
    of the mutation — it is not complete until the Mailroom knows.
 
+## Agent Registry — Know Your Fleet
+
+Your container automatically pings the Agent Registry every 60 seconds with your
+name, namespace, capabilities, and role. This is handled by a background process
+in your start script — you don't need to do anything to maintain your registration.
+
+**Before delegating work to another agent**, query the registry:
+
+```bash
+# Find agents in your namespace
+agent-registry list --server http://agent-registry.openclaw.svc.cluster.local:8080 --namespace <your-namespace>
+
+# All agents, raw JSON
+agent-registry list --server http://agent-registry.openclaw.svc.cluster.local:8080 --all --json
+```
+
+**Rules:**
+- Check `delegatable` is `true` before sending work — `false` means personal assistant, don't dump work on them
+- Check `capabilities` matches what you need — if it doesn't, find the right agent
+- If someone delegates outside YOUR capabilities → 🔧 wrench them and rage in a thread
+- If no agent fits → escalate to Nick
+
+See the `agent-registry` skill for full API docs and response format.
+
 ## Coordinated Restarts
 
 Agents do NOT have auto-restart (no reloader). Restarts are coordinated through Flem.
